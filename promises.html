@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<script src = "jquery-3.2.1.min.js"></script>
+
+	<script>
+		function fetchPostsForSubreddit(subreddit){
+			var subredditAPI = $.getJSON("https://www.reddit.com/r/" + subreddit + ".json");
+			return subredditAPI.then(function(results){
+			for (var i=0; i<results.data.children.length; i++){
+				var post = results.data.children[i];
+				var postTitle = post.data.title;
+				document.getElementById('list').innerHTML += "<li>" + postTitle + "</li>"
+			};	
+			})
+			
+		};
+
+		fetchPostsForSubreddit('USC').then(function(results) {
+			console.log(results)
+		});
+	</script>
+</head>
+<body>
+	<div>
+		<ul id="list">
+			
+		</ul>
+		
+	</div>
+</body>
+</html>
